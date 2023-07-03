@@ -26,7 +26,7 @@ class ChatGpt:
         self.PASS = password
         self.COOKIES_FILE = f'{tempfile.gettempdir()}/openai.cookies'
         print(f'Iniciando WEBDRIVER')
-        self.driver = iniciar_webdriver(headless=False, pos="izquierda")
+        self.driver = iniciar_webdriver(headless='new', pos="izquierda")
         self.wait = WebDriverWait(self.driver, 30)
         login = self.login_openai()
         print()
@@ -186,6 +186,11 @@ class ChatGpt:
             #extraemos el texto generado
             e = self.driver.find_elements(By.CSS_SELECTOR, "div.markdown")[-1]
             respuesta = e.text
+
+            #continuar generando mas respuesta
+            more = self.driver.find_elements(By.XPATH, "//div[text()='Continue generating']")
+            if more:
+                more.click()
 
             # elemento de los 3 puntos animados mientras se genera la respuesta
             puntos = self.driver.find_elements(By.CSS_SELECTOR, "div.text-2xl")
