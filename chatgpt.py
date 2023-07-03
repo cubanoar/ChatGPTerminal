@@ -26,7 +26,7 @@ class ChatGpt:
         self.PASS = password
         self.COOKIES_FILE = f'{tempfile.gettempdir()}/openai.cookies'
         print(f'Iniciando WEBDRIVER')
-        self.driver = iniciar_webdriver(headless='new', pos="izquierda")
+        self.driver = iniciar_webdriver(headless=False, pos="izquierda")
         self.wait = WebDriverWait(self.driver, 30)
         login = self.login_openai()
         print()
